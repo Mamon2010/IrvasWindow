@@ -1,6 +1,5 @@
-"use strict";
-
 function modalView() {
+    "use strict";
 
     //Общие функции открытия/закрытия модальных окон
     function showModalView(popup) {
@@ -15,9 +14,12 @@ function modalView() {
                 document.body.style.overflow = '';
             });
         });
-        closeDialog.addEventListener('click', () => {
-            closeDialog.style.display = 'none';
-            document.body.style.overflow = '';
+        closeDialog.addEventListener('click', (event) => {
+            let target = event.target;
+            if (target == closeDialog) {
+                closeDialog.style.display = 'none';
+                document.body.style.overflow = '';
+            }
         });
     }
 

@@ -1,6 +1,6 @@
-"use strict";
-
 function sendForm() {
+
+    "use strict";
 
     let message = {
             success: "Спасибо за обращение, мы с вами скоро свяжемся",
