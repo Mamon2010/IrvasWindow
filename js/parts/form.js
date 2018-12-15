@@ -62,7 +62,6 @@ function sendForm() {
                 .catch(() => statusMessage.innerHTML = message.fail)
                 .then(clearInput)
                 .then(setTimeout(() => {
-                    // $('.status').remove();
                     document.querySelector('form .status').remove();
                 }, 3000));
         });
@@ -70,13 +69,11 @@ function sendForm() {
 
     let inputContact = document.querySelectorAll('[name = user_phone]');
 
-    // Form Modal Request a call
-    let callForm = document.querySelector('.form');
-    httpRequest(callForm);
-
-    // // Form Modal Request an engineer
-    // let engineerForm = document.querySelector('.popup');
-    // httpRequest(formContact);
+    // Form Modal and main-form
+    let callForm = document.querySelectorAll('.form');
+    callForm.forEach((item) => {
+        httpRequest(item);
+    });
 
     //Функция для валидации номера телефона
     let validatePhone = (input) => {
