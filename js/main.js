@@ -1,11 +1,16 @@
-import modalView from './parts/modalView';
-import sendForm from './parts/form';
-import tabs from './parts/tabs';
-import image from './parts/image';
+    import sendForm from './parts/form';
+    import modalView from './parts/modalView';
+    import tabs from './parts/tabs';
+    import image from './parts/image';
+    import timer from './parts/timer';
 
-window.addEventListener('DOMContentLoaded', () => {
-    modalView();
-    sendForm();
-    tabs();
-    image();
-});
+
+    window.addEventListener('DOMContentLoaded', () => {
+        "use strict";
+
+        modalView();
+        sendForm();
+        tabs();
+        image();
+        timer();
+    });
