@@ -24,13 +24,14 @@ function tabs() {
         glazingBlockA = document.querySelectorAll('.glazing_block_a'),
         glazingContent = document.querySelectorAll('.glazing_content');
 
-    hideTabContent(1, glazingBlock, glazingContent, 'active');
+    hideTabContent(0, glazingBlock, glazingContent, 'active');
+    showTabContent(0, glazingBlock, glazingContent, 'active');
 
     glazingSlider.addEventListener('click', (event) => {
         let target = event.target;
-        if (target && target.classList.contains('glazing_block_a')) {
+        if (target && target.closest('div').classList.contains('glazing_block')) {
             for (let i = 0; i < glazingBlockA.length; i++) {
-                if (target == glazingBlockA[i]) {
+                if (target.closest('div') == glazingBlock[i]) {
                     hideTabContent(0, glazingBlock, glazingContent, 'active');
                     showTabContent(i, glazingBlock, glazingContent, 'active');
                     break;
@@ -43,15 +44,16 @@ function tabs() {
     let decorationTabcontent = document.querySelectorAll('.decoration_tabcontent'),
         decorationlink = document.querySelectorAll('.decoration_link'),
         decorationlinkA = document.querySelectorAll('.decoration_link_a'),
-        decorationSlider = document.querySelector('.decoration_slider');
+        decorationSlider = document.querySelector('.decoration_slider'),
+        decorationItem = document.querySelectorAll('.decoration_item');
 
     hideTabContent(1, decorationlink, decorationTabcontent, 'after_click');
 
     decorationSlider.addEventListener('click', (event) => {
         let target = event.target;
-        if (target && target.classList.contains('decoration_link_a')) {
+        if (target && target.closest('.decoration_item').classList.contains('decoration_item')) {
             for (let i = 0; i < decorationlinkA.length; i++) {
-                if (target == decorationlinkA[i]) {
+                if (target.closest('.decoration_item') == decorationItem[i]) {
                     hideTabContent(0, decorationlink, decorationTabcontent, 'after_click');
                     showTabContent(i, decorationlink, decorationTabcontent, 'after_click');
                     break;
@@ -59,6 +61,7 @@ function tabs() {
             }
         }
     });
+
 
 }
 

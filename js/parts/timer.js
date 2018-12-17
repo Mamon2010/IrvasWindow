@@ -2,7 +2,7 @@ function timer() {
 
     "use strict";
 
-    let deadLine = '12.18.2018';
+    let deadLine = '12.31.2018';
 
     function getTimeRemaining(endtime) {
         let d = new Date().getTimezoneOffset() * 60 * 1000,
