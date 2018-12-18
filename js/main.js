@@ -3,6 +3,7 @@
     import tabs from './parts/tabs';
     import image from './parts/image';
     import timer from './parts/timer';
+    import calculate from './parts/calculate';
 
 
     window.addEventListener('DOMContentLoaded', () => {
@@ -13,4 +14,5 @@
         tabs();
         image();
         timer();
+        calculate();
     });
