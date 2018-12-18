@@ -292,11 +292,12 @@ function calculate() {
   validateSize(height, 'height'); ////// Чекбоксы Cold и Warm
 
   var checkBox = document.querySelectorAll('.popup_calc_profile .checkbox');
-  checkBox.forEach(function (item) {
+  checkBox.forEach(function (item, i) {
     item.addEventListener('click', function (e) {
       var target = e.target;
 
       if (item.checked) {
+        data.describe = document.querySelectorAll('.popup_calc_profile input.checkbox')[i].dataset.describe;
         checkBox.forEach(function (item) {
           if (target != item) {
             item.checked = false;

@@ -173,10 +173,11 @@ function calculate() {
 
     let checkBox = document.querySelectorAll('.popup_calc_profile .checkbox');
 
-    checkBox.forEach((item) => {
+    checkBox.forEach((item, i) => {
         item.addEventListener('click', (e) => {
             let target = e.target;
             if (item.checked) {
+                data.describe = document.querySelectorAll('.popup_calc_profile input.checkbox')[i].dataset.describe;
                 checkBox.forEach((item) => {
                     if (target != item) {
                         item.checked = false;
@@ -207,7 +208,7 @@ function calculate() {
         let formData = new FormData(form);
         //  obj = {};
 
-        formData.forEach(function (value, key) {
+        formData.forEach(function(value, key) {
             data[key] = value;
         });
 
@@ -215,13 +216,13 @@ function calculate() {
 
         //создаем функцию отправки в которой создаем промис
         function sendData(data) {
-            return new Promise(function (resolve, reject) {
+            return new Promise(function(resolve, reject) {
 
                 let request = new XMLHttpRequest();
                 request.open('POST', 'server.php');
                 request.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
 
-                request.addEventListener('readystatechange', function () {
+                request.addEventListener('readystatechange', function() {
                     if (request.readyState === 4) {
                         if (request.status == 200) {
                             resolve();
