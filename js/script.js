@@ -78,9 +78,9 @@ window.addEventListener('DOMContentLoaded', () => {
 
 
     //Функция для реквеста
-    function httpRequest(form, objData) {
+    function httpRequest(form) {
         let input = form.getElementsByTagName('input');
-        form.addEventListener('submit', function(event) {
+        form.addEventListener('submit', function (event) {
             event.preventDefault();
             form.appendChild(statusMessage);
 
@@ -88,21 +88,21 @@ window.addEventListener('DOMContentLoaded', () => {
             let formData = new FormData(form);
             // obj = {};
 
-            formData.forEach(function(value, key) {
-                objData[key] = value;
+            formData.forEach(function (value, key) {
+                data[key] = value;
             });
 
-            let json = JSON.stringify(objData);
+            let json = JSON.stringify(data);
 
             //создаем функцию отправки в которой создаем промис
             function sendData(data) {
-                return new Promise(function(resolve, reject) {
+                return new Promise(function (resolve, reject) {
 
                     let request = new XMLHttpRequest();
                     request.open('POST', 'server.php');
                     request.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
 
-                    request.addEventListener('readystatechange', function() {
+                    request.addEventListener('readystatechange', function () {
                         if (request.readyState === 4) {
                             if (request.status == 200) {
                                 resolve();
@@ -139,7 +139,7 @@ window.addEventListener('DOMContentLoaded', () => {
     // Form Modal Request a call
     let callForm = document.querySelectorAll('.form');
     callForm.forEach((item) => {
-        httpRequest(item, data);
+        httpRequest(item);
     });
 
     // // Form Modal Request an engineer
@@ -196,7 +196,6 @@ window.addEventListener('DOMContentLoaded', () => {
         item.addEventListener('click', (e) => {
             e.preventDefault();
             continueModalView(popupContinueProfile, popupCalc);
-            data.viewType = document.getElementById('view_type').value;
         });
     });
 
@@ -212,6 +211,7 @@ window.addEventListener('DOMContentLoaded', () => {
         item.addEventListener('click', (e) => {
             e.preventDefault();
             continueModalView(popupFormContinueForm, popupContinueProfile);
+            data.viewType = document.getElementById('view_type').value;
         });
     });
 
@@ -273,6 +273,7 @@ window.addEventListener('DOMContentLoaded', () => {
                 input.value = input.value.slice(0, -1);
             }
             data[dataName] = input.value;
+            console.log(data);
         });
     }
 
@@ -414,7 +415,7 @@ window.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    workSection.addEventListener('click', function(e) {
+    workSection.addEventListener('click', function (e) {
         e.preventDefault();
         let target = e.target;
         if (target && target.classList.contains('workImage')) {

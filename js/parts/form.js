@@ -2,6 +2,7 @@ function sendForm() {
 
     "use strict";
 
+
     let message = {
             success: "Спасибо за обращение, мы с вами скоро свяжемся",
             fail: "Что то пошло не так"
@@ -14,65 +15,67 @@ function sendForm() {
     //Функция для реквеста
     function httpRequest(form) {
         let input = form.getElementsByTagName('input');
-        form.addEventListener('submit', function(event) {
-            event.preventDefault();
-            form.appendChild(statusMessage);
+        //form.addEventListener('submit', function (event) {
+        event.preventDefault();
+        form.appendChild(statusMessage);
 
-            //собираем данные для отправки
-            let formData = new FormData(form),
-                obj = {};
+        //собираем данные для отправки
+        let formData = new FormData(form);
+        let obj = {};
 
-            formData.forEach(function(value, key) {
-                obj[key] = value;
-            });
-
-            let json = JSON.stringify(obj);
-
-            //создаем функцию отправки в которой создаем промис
-            function sendData(data) {
-                return new Promise(function(resolve, reject) {
-
-                    let request = new XMLHttpRequest();
-                    request.open('POST', 'server.php');
-                    request.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
-
-                    request.addEventListener('readystatechange', function() {
-                        if (request.readyState === 4) {
-                            if (request.status == 200) {
-                                resolve();
-                            } else {
-                                reject();
-                            }
-                        }
-                    });
-                    request.send(data);
-                });
-                //end sendData
-            }
-
-            function clearInput() {
-                for (let i = 0; i < input.length; i++) {
-                    input[i].value = '';
-                }
-            }
-
-            sendData(json)
-                // .then(() => statusMessage.innerHTML = message.loading)
-                .then(() => statusMessage.innerHTML = message.success)
-                .catch(() => statusMessage.innerHTML = message.fail)
-                .then(clearInput)
-                .then(setTimeout(() => {
-                    document.querySelector('form .status').remove();
-                }, 3000));
+        formData.forEach(function (value, key) {
+            obj[key] = value;
         });
+
+        let json = JSON.stringify(obj);
+
+        //создаем функцию отправки в которой создаем промис
+        function sendData(data) {
+            return new Promise(function (resolve, reject) {
+
+                let request = new XMLHttpRequest();
+                request.open('POST', 'server.php');
+                request.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
+
+                request.addEventListener('readystatechange', function () {
+                    if (request.readyState === 4) {
+                        if (request.status == 200) {
+                            resolve();
+                        } else {
+                            reject();
+                        }
+                    }
+                });
+                request.send(data);
+            });
+            //end sendData
+        }
+
+        function clearInput() {
+            for (let i = 0; i < input.length; i++) {
+                input[i].value = '';
+            }
+        }
+
+        sendData(json)
+            // .then(() => statusMessage.innerHTML = message.loading)
+            .then(() => statusMessage.innerHTML = message.success)
+            .catch(() => statusMessage.innerHTML = message.fail)
+            .then(clearInput)
+            .then(setTimeout(() => {
+                document.querySelector('form .status').remove();
+            }, 3000));
     }
 
     let inputContact = document.querySelectorAll('[name = user_phone]');
 
     // Form Modal and main-form
     let callForm = document.querySelectorAll('.form');
+
     callForm.forEach((item) => {
-        httpRequest(item);
+        item.addEventListener('submit', () => {
+            httpRequest(item);
+        });
     });
 
     //Функция для валидации номера телефона
