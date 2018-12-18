@@ -146,11 +146,19 @@ function calculate() {
   }
 
   function closeModalView(closeDialog, closeBtn) {
+    var input = closeDialog.querySelectorAll('input'),
+        checkBox = closeDialog.querySelectorAll('.checkbox');
     closeBtn.forEach(function (item) {
       item.addEventListener('click', function () {
         closeDialog.style.display = 'none';
         document.body.style.overflow = '';
         data = {};
+        input.forEach(function (item) {
+          item.value = '';
+        });
+        checkBox.forEach(function (item) {
+          item.checked = false;
+        });
       });
     });
     closeDialog.addEventListener('click', function (event) {
@@ -160,6 +168,12 @@ function calculate() {
         closeDialog.style.display = 'none';
         document.body.style.overflow = '';
         data = {};
+        input.forEach(function (item) {
+          item.value = '';
+        });
+        checkBox.forEach(function (item) {
+          item.checked = false;
+        });
       }
     });
   }
@@ -168,6 +182,14 @@ function calculate() {
     popupNew.style.display = 'block';
     document.body.style.overflow = 'hidden';
     popupOld.style.display = 'none';
+    var input = popupOld.querySelectorAll('input'),
+        checkBox = popupOld.querySelectorAll('.checkbox');
+    checkBox.forEach(function (item) {
+      item.checked = false;
+    });
+    input.forEach(function (item) {
+      item.value = '';
+    });
   } // модальное окно рассчитать стоимость
 
 
@@ -236,6 +258,7 @@ function calculate() {
           if (i == a) {
             hide(0, bigIcons, smallIcons);
             show(i, bigIcons, smallIcons);
+            data.previewType = document.querySelector('.balcon_icons .do_image_more').alt;
           }
         }
       });
@@ -442,8 +465,8 @@ function modalView() {
     document.body.style.overflow = 'hidden';
   }
 
-  function closeModalView(closeDialog) {
-    popupClose.forEach(function (item) {
+  function closeModalView(closeDialog, closeBtn) {
+    closeBtn.forEach(function (item) {
       item.addEventListener('click', function () {
         closeDialog.style.display = 'none';
         document.body.style.overflow = '';
@@ -467,7 +490,7 @@ function modalView() {
     e.preventDefault();
     showModalView(popupEngineer);
   });
-  closeModalView(popupEngineer); // модальное окно Заказать обратный звонок
+  closeModalView(popupEngineer, popupClose); // модальное окно Заказать обратный звонок
 
   var phoneBackLink = document.querySelector('.phone_link'),
       popup = document.querySelector('.popup');
@@ -481,7 +504,7 @@ function modalView() {
     e.preventDefault();
     showModalView(popup);
   });
-  closeModalView(popup); //через 60 секунд выдавать модальное окно  
+  closeModalView(popup, popupClose); //через 60 секунд выдавать модальное окно  
 
   setTimeout(function () {
     showModalView(popup);
@@ -516,12 +539,9 @@ function tabs() {
 
   function showTabContent(b, classLink, classContent) {
     var classAdd = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : '';
-
-    if (classContent[b].classList.contains('hide')) {
-      classContent[b].classList.remove('hide');
-      classContent[b].classList.add('show');
-      classLink[b].classList.add(classAdd);
-    }
+    classContent[b].classList.remove('hide');
+    classContent[b].classList.add('show');
+    classLink[b].classList.add(classAdd);
   } /////табы Glazing
 
 
@@ -529,16 +549,16 @@ function tabs() {
       glazingBlock = document.querySelectorAll('.glazing_block'),
       glazingBlockA = document.querySelectorAll('.glazing_block_a'),
       glazingContent = document.querySelectorAll('.glazing_content');
-  hideTabContent(0, glazingBlock, glazingContent, 'active');
-  showTabContent(0, glazingBlock, glazingContent, 'active');
+  hideTabContent(1, glazingBlockA, glazingContent, 'active');
+  showTabContent(0, glazingBlockA, glazingContent, 'active');
   glazingSlider.addEventListener('click', function (event) {
     var target = event.target;
 
     if (target && target.closest('div').classList.contains('glazing_block')) {
       for (var i = 0; i < glazingBlockA.length; i++) {
         if (target.closest('div') == glazingBlock[i]) {
-          hideTabContent(0, glazingBlock, glazingContent, 'active');
-          showTabContent(i, glazingBlock, glazingContent, 'active');
+          hideTabContent(0, glazingBlockA, glazingContent, 'active');
+          showTabContent(i, glazingBlockA, glazingContent, 'active');
           break;
         }
       }

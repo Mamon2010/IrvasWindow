@@ -10,11 +10,9 @@ function tabs() {
     }
 
     function showTabContent(b, classLink, classContent, classAdd = '') {
-        if (classContent[b].classList.contains('hide')) {
-            classContent[b].classList.remove('hide');
-            classContent[b].classList.add('show');
-            classLink[b].classList.add(classAdd);
-        }
+        classContent[b].classList.remove('hide');
+        classContent[b].classList.add('show');
+        classLink[b].classList.add(classAdd);
     }
 
     /////табы Glazing
@@ -24,22 +22,21 @@ function tabs() {
         glazingBlockA = document.querySelectorAll('.glazing_block_a'),
         glazingContent = document.querySelectorAll('.glazing_content');
 
-    hideTabContent(0, glazingBlock, glazingContent, 'active');
-    showTabContent(0, glazingBlock, glazingContent, 'active');
+    hideTabContent(1, glazingBlockA, glazingContent, 'active');
+    showTabContent(0, glazingBlockA, glazingContent, 'active');
 
     glazingSlider.addEventListener('click', (event) => {
         let target = event.target;
         if (target && target.closest('div').classList.contains('glazing_block')) {
             for (let i = 0; i < glazingBlockA.length; i++) {
                 if (target.closest('div') == glazingBlock[i]) {
-                    hideTabContent(0, glazingBlock, glazingContent, 'active');
-                    showTabContent(i, glazingBlock, glazingContent, 'active');
+                    hideTabContent(0, glazingBlockA, glazingContent, 'active');
+                    showTabContent(i, glazingBlockA, glazingContent, 'active');
                     break;
                 }
             }
         }
     });
-
     /////табы декорации
     let decorationTabcontent = document.querySelectorAll('.decoration_tabcontent'),
         decorationlink = document.querySelectorAll('.decoration_link'),

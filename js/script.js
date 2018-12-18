@@ -10,11 +10,21 @@ window.addEventListener('DOMContentLoaded', () => {
     }
 
     function closeModalView(closeDialog, closeBtn) {
+        let input = closeDialog.querySelectorAll('input'),
+            checkBox = closeDialog.querySelectorAll('.checkbox');
         closeBtn.forEach((item) => {
             item.addEventListener('click', () => {
                 closeDialog.style.display = 'none';
                 document.body.style.overflow = '';
                 data = {};
+                // let input = form.getElementsByTagName('input');
+                input.forEach((item) => {
+                    item.value = '';
+                });
+                checkBox.forEach((item) => {
+                    item.checked = false;
+                });
+
             });
         });
         closeDialog.addEventListener('click', (event) => {
@@ -23,6 +33,12 @@ window.addEventListener('DOMContentLoaded', () => {
                 closeDialog.style.display = 'none';
                 document.body.style.overflow = '';
                 data = {};
+                input.forEach((item) => {
+                    item.value = '';
+                });
+                checkBox.forEach((item) => {
+                    item.checked = false;
+                });
             }
         });
     }
@@ -168,6 +184,16 @@ window.addEventListener('DOMContentLoaded', () => {
         popupNew.style.display = 'block';
         document.body.style.overflow = 'hidden';
         popupOld.style.display = 'none';
+        let input = popupOld.querySelectorAll('input'),
+            checkBox = popupOld.querySelectorAll('.checkbox');
+
+        checkBox.forEach((item) => {
+            item.checked = false;
+        });
+
+        input.forEach((item) => {
+            item.value = '';
+        });
     }
 
 
@@ -251,6 +277,7 @@ window.addEventListener('DOMContentLoaded', () => {
                     if (i == a) {
                         hide(0, bigIcons, smallIcons);
                         show(i, bigIcons, smallIcons);
+                        data.previewType = document.querySelector('.balcon_icons .do_image_more').alt;
                     }
                 }
             });
@@ -284,10 +311,11 @@ window.addEventListener('DOMContentLoaded', () => {
 
     let checkBox = document.querySelectorAll('.popup_calc_profile .checkbox');
 
-    checkBox.forEach((item) => {
+    checkBox.forEach((item, i) => {
         item.addEventListener('click', (e) => {
             let target = e.target;
             if (item.checked) {
+                data.describe = document.querySelectorAll('.popup_calc_profile input.checkbox')[i].dataset.describe;
                 checkBox.forEach((item) => {
                     if (target != item) {
                         item.checked = false;
@@ -338,11 +366,9 @@ window.addEventListener('DOMContentLoaded', () => {
     }
 
     function showTabContent(b, classLink, classContent, classAdd = '') {
-        if (classContent[b].classList.contains('hide')) {
-            classContent[b].classList.remove('hide');
-            classContent[b].classList.add('show');
-            classLink[b].classList.add(classAdd);
-        }
+        classContent[b].classList.remove('hide');
+        classContent[b].classList.add('show');
+        classLink[b].classList.add(classAdd);
     }
 
     /////табы декорации
@@ -375,15 +401,16 @@ window.addEventListener('DOMContentLoaded', () => {
         glazingBlockA = document.querySelectorAll('.glazing_block_a'),
         glazingContent = document.querySelectorAll('.glazing_content');
 
-    hideTabContent(1, glazingBlock, glazingContent, 'active');
+    hideTabContent(1, glazingBlockA, glazingContent, 'active');
+    showTabContent(0, glazingBlockA, glazingContent, 'active');
 
     glazingSlider.addEventListener('click', (event) => {
         let target = event.target;
         if (target && target.closest('div').classList.contains('glazing_block')) {
             for (let i = 0; i < glazingBlockA.length; i++) {
                 if (target.closest('div') == glazingBlock[i]) {
-                    hideTabContent(0, glazingBlock, glazingContent, 'active');
-                    showTabContent(i, glazingBlock, glazingContent, 'active');
+                    hideTabContent(0, glazingBlockA, glazingContent, 'active');
+                    showTabContent(i, glazingBlockA, glazingContent, 'active');
                     break;
                 }
             }

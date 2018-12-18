@@ -11,11 +11,20 @@ function calculate() {
     }
 
     function closeModalView(closeDialog, closeBtn) {
+        let input = closeDialog.querySelectorAll('input'),
+            checkBox = closeDialog.querySelectorAll('.checkbox');
         closeBtn.forEach((item) => {
             item.addEventListener('click', () => {
                 closeDialog.style.display = 'none';
                 document.body.style.overflow = '';
                 data = {};
+                input.forEach((item) => {
+                    item.value = '';
+                });
+                checkBox.forEach((item) => {
+                    item.checked = false;
+                });
+
             });
         });
         closeDialog.addEventListener('click', (event) => {
@@ -24,15 +33,30 @@ function calculate() {
                 closeDialog.style.display = 'none';
                 document.body.style.overflow = '';
                 data = {};
+                input.forEach((item) => {
+                    item.value = '';
+                });
+                checkBox.forEach((item) => {
+                    item.checked = false;
+                });
             }
         });
-
     }
 
     function continueModalView(popupNew, popupOld) {
         popupNew.style.display = 'block';
         document.body.style.overflow = 'hidden';
         popupOld.style.display = 'none';
+        let input = popupOld.querySelectorAll('input'),
+            checkBox = popupOld.querySelectorAll('.checkbox');
+
+        checkBox.forEach((item) => {
+            item.checked = false;
+        });
+
+        input.forEach((item) => {
+            item.value = '';
+        });
     }
 
     // модальное окно рассчитать стоимость
@@ -60,6 +84,7 @@ function calculate() {
         item.addEventListener('click', (e) => {
             e.preventDefault();
             continueModalView(popupContinueProfile, popupCalc);
+
         });
     });
 
@@ -115,6 +140,7 @@ function calculate() {
                     if (i == a) {
                         hide(0, bigIcons, smallIcons);
                         show(i, bigIcons, smallIcons);
+                        data.previewType = document.querySelector('.balcon_icons .do_image_more').alt;
                     }
                 }
             });

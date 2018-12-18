@@ -7,8 +7,8 @@ function modalView() {
         document.body.style.overflow = 'hidden';
     }
 
-    function closeModalView(closeDialog) {
-        popupClose.forEach((item) => {
+    function closeModalView(closeDialog, closeBtn) {
+        closeBtn.forEach((item) => {
             item.addEventListener('click', () => {
                 closeDialog.style.display = 'none';
                 document.body.style.overflow = '';
@@ -33,7 +33,7 @@ function modalView() {
         showModalView(popupEngineer);
     });
 
-    closeModalView(popupEngineer);
+    closeModalView(popupEngineer, popupClose);
 
     // модальное окно Заказать обратный звонок
 
@@ -54,7 +54,7 @@ function modalView() {
         showModalView(popup);
     });
 
-    closeModalView(popup);
+    closeModalView(popup, popupClose);
 
     //через 60 секунд выдавать модальное окно  
     setTimeout(() => {
